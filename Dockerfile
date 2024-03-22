@@ -1,4 +1,4 @@
-FROM node:21-alpine3.18 as base
+FROM node:20.11-bookworm-slim as base
 
 WORKDIR /usr/src/app
 
