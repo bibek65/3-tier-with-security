@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Commit version increase
+      - name: Node version setup
         uses: actions/setup-node@v4
         with:
           node-version: "20"
@@ -22,3 +22,6 @@ jobs:
       - name: Push dist to S3 bucket
         run: |
           aws s3 cp ./dist/ s3://bibek-s3-bucket --recursive
+      - name: Invalidate Cloudfront
+        run: |
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
