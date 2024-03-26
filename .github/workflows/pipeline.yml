@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Build Dist File
+    name: Build Dist File and Increase package.json and Copy to S3 and invalidate cloudfront
     runs-on: self-hosted
     steps:
       - name: Github Checkout
