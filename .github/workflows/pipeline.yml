@@ -14,6 +14,6 @@ jobs:
       - name: Build Frontend image
         run: |
           docker build -t frontend .
-      - name: Push to S3 bucket
+      - name: Push dist to S3 bucket
         run: |
           aws s3 cp ./dist/ s3://bibek-s3-bucket --recursive
