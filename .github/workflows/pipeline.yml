@@ -26,7 +26,7 @@ jobs:
           npm version patch --no-git-tag-version
           git add package.json
           git commit -m "Increase package.json version and push"
-          git push https://${{ secrets.PAT_TOKEN }}@github.com/bibek65/Backend.git
+          git push https://${{ secrets.PAT_TOKEN }}@github.com/bibek65/Frontend.git
 
       - name: Push dist to S3 bucket
         run: |
