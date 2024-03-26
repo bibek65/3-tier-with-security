@@ -1,4 +1,4 @@
-name: Backend image Build and Push
+name: Frontend Build and hosting in aws using Cloudfront and S3
 
 on:
   push:
@@ -11,17 +11,45 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Node version setup
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - name: Install dependencies and build
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Commit version increase
         run: |
-          npm install
-          npm run build
+          git config --global user.name 'bibek65'
+          git config --global user.email 'bkarna65@gmail.com'
+          npm version patch --no-git-tag-version
+          git add package.json
+          git commit -m "Increase package.json version and push"
+          git push https://${{ secrets.PAT_TOKEN }}@github.com/bibek65/Backend.git
+
+  push_to_s3:
+    name: Push to S3 Bucket
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Push dist to S3 bucket
-        run: |
-          aws s3 cp ./dist/ s3://bibek-s3-bucket --recursive
+        run: aws s3 cp ./dist/ s3://bibek-s3-bucket --recursive
+
+  invalidate_cloudfront:
+    name: Invalidate Cloudfront
+    needs: push_to_s3
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Invalidate Cloudfront
-        run: |
-          aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
