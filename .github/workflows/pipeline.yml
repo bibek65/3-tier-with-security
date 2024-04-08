@@ -31,10 +31,8 @@ jobs:
           docker build -t frontendimg .
           docker run -d --name frontend -p 80:80 frontendimg
         working-directory: ./frontend
+
       - name: ZAP Scan
-        uses: zaproxy/action-baseline@v0.6.1
-        with:
-          docker_name: "owasp/zap2docker-stable"
-          target: "http://192.168.220.139/"
-          rules_file_name: ".zap/rules.tsv"
-          cmd_options: "-a"
+        run: |
+          docker run -v $(pwd):/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
+            -t "http://192.168.220.139/" -g gen.conf -r testreport.html
