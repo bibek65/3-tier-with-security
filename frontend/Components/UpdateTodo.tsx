@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router";
 
 
-const API_URL = 'https://api.bibek65.tech';
+const API_URL = 'https://192.168.220.139:5000';
 const UpdateTodo = () => {
     const { id } = useParams();
     const [todo, settodo] = useState({

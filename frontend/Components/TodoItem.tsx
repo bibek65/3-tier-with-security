@@ -29,7 +29,7 @@ import { faPen, faTrashCan, faListCheck, faPlus } from '@fortawesome/free-solid-
 
 import axios from 'axios';
 
-const API_URL = 'https://api.bibek65.tech';
+const API_URL = 'https://192.168.220.139:5000';
 
 interface TodoInterface {
     id: number;

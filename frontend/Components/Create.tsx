@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const API_URL = 'https://api.bibek65.tech';
+const API_URL = 'https://192.168.220.139:5000';
 
 const Create = () => {
     const [name, setName] = useState("");
