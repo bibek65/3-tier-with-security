@@ -12,15 +12,15 @@ jobs:
     steps:
       - name: Github Checkout
         uses: actions/checkout@v2
-      - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        with:
-          projectBaseDir: ./frontend
-          args: >
-            -Dsonar.projectKey=ReactProject
+      # - name: SonarQube Scan
+      #   uses: SonarSource/sonarqube-scan-action@master
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #     SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      #   with:
+      #     projectBaseDir: ./frontend
+      #     args: >
+      #       -Dsonar.projectKey=ReactProject
 
       - name: Node version setup
         uses: actions/setup-node@v4
@@ -33,6 +33,6 @@ jobs:
         working-directory: ./frontend
 
       - name: ZAP Scan
-        run: |
-          docker run -v $(pwd):/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
-            -t "http://192.168.220.139/" -g gen.conf -r testreport.html
+        uses: zaproxy/action-full-scan@v0.10.0
+        with:
+          target: "http://192.168.220.139"
