@@ -16,10 +16,11 @@ jobs:
         uses: actions/checkout@v2
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: http://192.168.220.140:9000
         with:
           projectBaseDir: ./frontend
-          sonarHost: http://192.168.220.140:9000
-          sonarToken: ${{ secrets.SONAR_TOKEN }}
 
       - name: Node version setup
         uses: actions/setup-node@v4
