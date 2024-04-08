@@ -21,6 +21,8 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         with:
           projectBaseDir: ./frontend
+          args: >
+            -Dsonar.projectKey=ReactProject
 
       - name: Node version setup
         uses: actions/setup-node@v4
