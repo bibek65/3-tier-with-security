@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Frontend
+    name: Frontend Test
     runs-on: self-hosted
     steps:
       - name: Github Checkout
