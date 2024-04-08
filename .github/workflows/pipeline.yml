@@ -30,5 +30,4 @@ jobs:
         run: |
           npm install
           npm run build
-        with:
-          projectBaseDir: ./frontend
+        working-directory: ./frontend
